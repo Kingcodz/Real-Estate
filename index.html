@@ -1,0 +1,1187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Horizon Properties - Find Land. Buy Homes. Rent Smart.</title>
+<script src="https://cdn.tailwindcss.com/3.4.16"></script>
+<script>tailwind.config={theme:{extend:{colors:{primary:'#2E7D32',secondary:'#1A237E'},borderRadius:{'none':'0px','sm':'4px',DEFAULT:'8px','md':'12px','lg':'16px','xl':'20px','2xl':'24px','3xl':'32px','full':'9999px','button':'8px'}}}}</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Inter:wght@300;400;500;600;700&family=Libre+Baskerville:wght@400;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/echarts/5.5.0/echarts.min.js"></script>
+<style>
+:where([class^="ri-"])::before { content: "\f3c2"; }
+html {
+scroll-behavior: smooth;
+}
+body {
+font-family: 'Inter', sans-serif;
+color: #4B4B4B;
+overflow-x: hidden;
+}
+h1, h2, h3, h4, h5 {
+font-family: 'DM Serif Display', serif;
+}
+.section {
+position: relative;
+min-height: 100vh;
+width: 100%;
+overflow: hidden;
+}
+.bg-transition {
+position: absolute;
+top: 0;
+left: 0;
+width: 100%;
+height: 100%;
+background-size: cover;
+background-position: center;
+transition: transform 0.8s ease-out;
+z-index: -1;
+}
+.section-content {
+position: relative;
+z-index: 1;
+}
+input, textarea {
+outline: none;
+}
+.property-card:hover .property-details {
+opacity: 1;
+}
+.testimonial-slider {
+overflow: hidden;
+position: relative;
+}
+.testimonial-track {
+display: flex;
+transition: transform 0.5s ease;
+}
+.partner-logo {
+filter: grayscale(100%);
+transition: filter 0.3s ease, transform 0.3s ease;
+}
+.partner-logo:hover {
+filter: grayscale(0%);
+transform: scale(1.05);
+}
+.custom-checkbox {
+position: relative;
+cursor: pointer;
+}
+.custom-checkbox input {
+position: absolute;
+opacity: 0;
+cursor: pointer;
+}
+.checkmark {
+position: absolute;
+top: 0;
+left: 0;
+height: 20px;
+width: 20px;
+background-color: #fff;
+border: 2px solid #ddd;
+border-radius: 4px;
+}
+.custom-checkbox input:checked ~ .checkmark {
+background-color: #2E7D32;
+border-color: #2E7D32;
+}
+.checkmark:after {
+content: "";
+position: absolute;
+display: none;
+}
+.custom-checkbox input:checked ~ .checkmark:after {
+display: block;
+}
+.custom-checkbox .checkmark:after {
+left: 6px;
+top: 2px;
+width: 5px;
+height: 10px;
+border: solid white;
+border-width: 0 2px 2px 0;
+transform: rotate(45deg);
+}
+.timeline-connector {
+position: absolute;
+top: 50%;
+left: 0;
+width: 100%;
+height: 2px;
+background-color: #E5E7EB;
+z-index: -1;
+}
+.cookie-consent {
+position: fixed;
+bottom: -100%;
+left: 0;
+width: 100%;
+background-color: white;
+box-shadow: 0 -4px 10px rgba(0,0,0,0.1);
+z-index: 1000;
+transition: bottom 0.5s ease;
+}
+.cookie-consent.show {
+bottom: 0;
+}
+.whatsapp-btn {
+position: fixed;
+bottom: 30px;
+right: 30px;
+z-index: 99;
+transition: transform 0.3s ease;
+}
+.whatsapp-btn:hover {
+transform: scale(1.1);
+}
+.custom-switch {
+position: relative;
+display: inline-block;
+width: 50px;
+height: 24px;
+}
+.custom-switch input {
+opacity: 0;
+width: 0;
+height: 0;
+}
+.slider {
+position: absolute;
+cursor: pointer;
+top: 0;
+left: 0;
+right: 0;
+bottom: 0;
+background-color: #ccc;
+transition: .4s;
+border-radius: 34px;
+}
+.slider:before {
+position: absolute;
+content: "";
+height: 16px;
+width: 16px;
+left: 4px;
+bottom: 4px;
+background-color: white;
+transition: .4s;
+border-radius: 50%;
+}
+input:checked + .slider {
+background-color: #2E7D32;
+}
+input:checked + .slider:before {
+transform: translateX(26px);
+}
+#partners.section {
+  min-height: auto;
+}
+
+</style>
+</head>
+<body>
+<!-- Header -->
+<header class="fixed top-0 left-0 w-full bg-white bg-opacity-95 shadow-md z-50 transition-all duration-300">
+<div class="container mx-auto px-6 py-4 flex items-center justify-between">
+<div class="flex items-center">
+<a href="#" class="text-3xl font-['Pacifico'] text-primary">Horizon Real Estates</a>
+<img src="./images/house_logo.png" alt="Logo Symbol" class="h-12 w-8 ml-2">
+</div>
+<nav class="hidden md:flex items-center space-x-8">
+<a href="#" class="text-gray-800 hover:text-primary font-medium transition-colors">Home</a>
+<a href="#about" class="text-gray-800 hover:text-primary font-medium transition-colors">About</a>
+<a href="#listings" class="text-gray-800 hover:text-primary font-medium transition-colors">Properties</a>
+<a href="#resources" class="text-gray-800 hover:text-primary font-medium transition-colors">Resources</a>
+<a href="#contact" class="text-gray-800 hover:text-primary font-medium transition-colors">Contact</a>
+</nav>
+<div class="flex items-center space-x-4">
+    <div class="hidden md:flex space-x-4">
+        <a href=""><button class="bg-gray-100 text-gray-800 px-4 py-2 !rounded-button font-medium hover:bg-gray-200 transition-colors">
+          <i class="ri-instagram-line"></i>
+        </button></a>
+        <a href=""><button class="bg-gray-100 text-gray-800 px-4 py-2 !rounded-button font-medium hover:bg-gray-200 transition-colors">
+          <i class="ri-tiktok-line"></i>
+        </button></a>
+      </div>
+      
+      
+<div class="md:hidden w-10 h-10 flex items-center justify-center cursor-pointer" id="mobile-menu-button">
+<i class="ri-menu-line ri-lg"></i>
+</div>
+</div>
+</div>
+<!-- Mobile Menu -->
+<div id="mobile-menu" class="hidden md:hidden bg-white w-full border-t border-gray-100">
+<div class="container mx-auto px-6 py-4 flex flex-col space-y-4">
+<a href="#" class="text-gray-800 hover:text-primary font-medium transition-colors py-2">Home</a>
+<a href="#about" class="text-gray-800 hover:text-primary font-medium transition-colors py-2">About</a>
+<a href="#listings" class="text-gray-800 hover:text-primary font-medium transition-colors py-2">Properties</a>
+<a href="#resources" class="text-gray-800 hover:text-primary font-medium transition-colors py-2">Resources</a>
+<a href="#contact" class="text-gray-800 hover:text-primary font-medium transition-colors py-2">Contact</a>
+ <!-- Social Media Links with Icons -->
+ <a href="https://instagram.com/yourprofile" target="_blank" rel="noopener noreferrer"
+ class="flex items-center text-gray-800 hover:text-primary font-medium transition-colors py-2 space-x-3">
+<i class="ri-instagram-line text-xl"></i>
+<span>Instagram</span>
+</a>
+
+<a href="https://tiktok.com/@yourprofile" target="_blank" rel="noopener noreferrer"
+ class="flex items-center text-gray-800 hover:text-primary font-medium transition-colors py-2 space-x-3">
+<i class="ri-tiktok-line text-xl"></i>
+<span>TikTok</span>
+</a>
+</div>
+</div>
+</header>
+<!-- Main Content -->
+<main>
+<!-- Hero Section -->
+<section id="hero" class="section">
+<div class="bg-transition" style="background-image: url('./images/hero_img.jpg');"></div>
+<div class="section-content flex items-center min-h-screen">
+<div class="container mx-auto px-6 py-20 mt-16">
+<div class="max-w-2xl">
+<h1 class="text-5xl md:text-6xl font-bold text-white mb-6 leading-tight drop-shadow-lg">Find Land. Buy Homes. Rent Smart.</h1>
+<p class="text-xl text-white mb-8 max-w-lg drop-shadow-md">Discover your perfect property with Horizon Properties, your trusted partner in real estate since 2010.</p>
+<div class="flex flex-col sm:flex-row gap-4">
+<a href="#listings"><button class="bg-primary text-white px-8 py-3 !rounded-button font-medium hover:bg-opacity-90 transition-colors whitespace-nowrap">Browse Listings</button></a>
+<a href="#contact"><button class="bg-white text-gray-800 px-8 py-3 !rounded-button font-medium hover:bg-opacity-90 transition-colors whitespace-nowrap">Contact Us</button></a>
+</div>
+</div>
+</div>
+</div>
+<div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce">
+<div class="w-10 h-10 flex items-center justify-center text-white">
+<i class="ri-arrow-down-line ri-lg"></i>
+</div>
+</div>
+</section>
+<!-- Listings Section -->
+<section id="listings" class="section bg-[#F5F1EB]">
+<div class="bg-transition" style="background-image: url('./images/testimonial_bg.jpg');"></div>
+<div class="section-content py-20">
+<div class="container mx-auto px-6">
+<div class="text-center mb-12">
+<h2 class="text-4xl font-bold mb-4">Featured Properties</h2>
+<p class="text-lg max-w-2xl mx-auto">Explore our handpicked selection of premium properties available for purchase or rent.</p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+<!-- Property 1 -->
+<div class="property-card bg-white rounded-lg overflow-hidden shadow-lg transition-transform hover:shadow-xl">
+<div class="relative h-64 overflow-hidden">
+<img src="./images/skyview.jpg" alt="Luxury Apartment" class="w-full h-full object-cover object-top transition-transform duration-500 hover:scale-105">
+<div class="property-details absolute inset-0 bg-black bg-opacity-60 flex items-center justify-center opacity-0 transition-opacity duration-300">
+<button class="bg-primary text-white px-6 py-2 !rounded-button font-medium hover:bg-opacity-90 transition-colors whitespace-nowrap">Currently Available To Let</button>
+</div>
+</div>
+<div class="p-6">
+<div class="flex justify-between items-start mb-2">
+<h3 class="text-xl font-bold">Skyview Apartment</h3>
+<span class="text-primary font-bold">₦825,000</span>
+</div>
+<div class="flex items-center text-gray-600 mb-4">
+<div class="w-5 h-5 flex items-center justify-center mr-2">
+<i class="ri-map-pin-line"></i>
+</div>
+<span>Edo State, Benin, G.R.A</span>
+</div>
+<div class="flex justify-between text-sm">
+<span class="bg-gray-100 px-3 py-1 rounded-full">Apartment</span>
+<div class="flex space-x-4">
+<div class="flex items-center">
+<div class="w-4 h-4 flex items-center justify-center mr-1">
+<i class="ri-hotel-bed-line"></i>
+</div>
+<span>2</span>
+</div>
+<div class="flex items-center">
+<div class="w-4 h-4 flex items-center justify-center mr-1">
+<i class="ri-shower-line"></i>
+</div>
+<span>2</span>
+</div>
+<div class="flex items-center">
+<div class="w-4 h-4 flex items-center justify-center mr-1">
+<i class="ri-ruler-line"></i>
+</div>
+<span>1,200 sq ft</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Property 2 -->
+<div class="property-card bg-white rounded-lg overflow-hidden shadow-lg transition-transform hover:shadow-xl">
+<div class="relative h-64 overflow-hidden">
+<img src="./images/willow.jpg" alt="Family Home" class="w-full h-full object-cover object-top transition-transform duration-500 hover:scale-105">
+<div class="property-details absolute inset-0 bg-black bg-opacity-60 flex items-center justify-center opacity-0 transition-opacity duration-300">
+<button class="bg-primary text-white px-6 py-2 !rounded-button font-medium hover:bg-opacity-90 transition-colors whitespace-nowrap">Currently Available To Buy</button>
+</div>
+</div>
+<div class="p-6">
+<div class="flex justify-between items-start mb-2">
+<h3 class="text-xl font-bold">Willow Creek Villa</h3>
+<span class="text-primary font-bold">₦985,000</span>
+</div>
+<div class="flex items-center text-gray-600 mb-4">
+<div class="w-5 h-5 flex items-center justify-center mr-2">
+<i class="ri-map-pin-line"></i>
+</div>
+<span>Anambara State, Onitsha</span>
+</div>
+<div class="flex justify-between text-sm">
+<span class="bg-gray-100 px-3 py-1 rounded-full">Villa</span>
+<div class="flex space-x-4">
+<div class="flex items-center">
+<div class="w-4 h-4 flex items-center justify-center mr-1">
+<i class="ri-hotel-bed-line"></i>
+</div>
+<span>4</span>
+</div>
+<div class="flex items-center">
+<div class="w-4 h-4 flex items-center justify-center mr-1">
+<i class="ri-shower-line"></i>
+</div>
+<span>3</span>
+</div>
+<div class="flex items-center">
+<div class="w-4 h-4 flex items-center justify-center mr-1">
+<i class="ri-ruler-line"></i>
+</div>
+<span>3,200 sq ft</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Property 3 -->
+<div class="property-card bg-white rounded-lg overflow-hidden shadow-lg transition-transform hover:shadow-xl">
+<div class="relative h-64 overflow-hidden">
+<img src="./images/hillside.jpg" alt="Land Property" class="w-full h-full object-cover object-top transition-transform duration-500 hover:scale-105">
+<div class="property-details absolute inset-0 bg-black bg-opacity-60 flex items-center justify-center opacity-0 transition-opacity duration-300">
+<button class="bg-primary text-white px-6 py-2 !rounded-button font-medium hover:bg-opacity-90 transition-colors whitespace-nowrap">Currently Available To Buy</button>
+</div>
+</div>
+<div class="p-6">
+<div class="flex justify-between items-start mb-2">
+<h3 class="text-xl font-bold">Hillside Acres</h3>
+<span class="text-primary font-bold">₦859,000</span>
+</div>
+<div class="flex items-center text-gray-600 mb-4">
+<div class="w-5 h-5 flex items-center justify-center mr-2">
+<i class="ri-map-pin-line"></i>
+</div>
+<span>Lagos, Surulere</span>
+</div>
+<div class="flex justify-between text-sm">
+<span class="bg-gray-100 px-3 py-1 rounded-full">Land</span>
+<div class="flex space-x-4">
+<div class="flex items-center">
+<div class="w-4 h-4 flex items-center justify-center mr-1">
+<i class="ri-landscape-line"></i>
+</div>
+<span>5 acres</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Property 4 -->
+<div class="property-card bg-white rounded-lg overflow-hidden shadow-lg transition-transform hover:shadow-xl">
+<div class="relative h-64 overflow-hidden">
+<img src="./images/metro business.jpg" alt="Commercial Building" class="w-full h-full object-cover object-top transition-transform duration-500 hover:scale-105">
+<div class="property-details absolute inset-0 bg-black bg-opacity-60 flex items-center justify-center opacity-0 transition-opacity duration-300">
+<button class="bg-primary text-white px-6 py-2 !rounded-button font-medium hover:bg-opacity-90 transition-colors whitespace-nowrap">Currently Available To Let</button>
+</div>
+</div>
+<div class="p-6">
+<div class="flex justify-between items-start mb-2">
+<h3 class="text-xl font-bold">Metro Business Center</h3>
+<span class="text-primary font-bold">₦231,250,000</span>
+</div>
+<div class="flex items-center text-gray-600 mb-4">
+<div class="w-5 h-5 flex items-center justify-center mr-2">
+<i class="ri-map-pin-line"></i>
+</div>
+<span>Enugu State, Enugu</span>
+</div>
+<div class="flex justify-between text-sm">
+<span class="bg-gray-100 px-3 py-1 rounded-full">Commercial</span>
+<div class="flex space-x-4">
+<div class="flex items-center">
+<div class="w-4 h-4 flex items-center justify-center mr-1">
+<i class="ri-building-line"></i>
+</div>
+<span>3 floors</span>
+</div>
+<div class="flex items-center">
+<div class="w-4 h-4 flex items-center justify-center mr-1">
+<i class="ri-ruler-line"></i>
+</div>
+<span>12,000 sq ft</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Property 5 -->
+<div class="property-card bg-white rounded-lg overflow-hidden shadow-lg transition-transform hover:shadow-xl">
+<div class="relative h-64 overflow-hidden">
+<img src="./images/ocean parad.jpg" alt="Beachfront Property" class="w-full h-full object-cover object-top transition-transform duration-500 hover:scale-105">
+<div class="property-details absolute inset-0 bg-black bg-opacity-60 flex items-center justify-center opacity-0 transition-opacity duration-300">
+<button class="bg-primary text-white px-6 py-2 !rounded-button font-medium hover:bg-opacity-90 transition-colors whitespace-nowrap">Currently Available To Buy</button>
+</div>
+</div>
+<div class="p-6">
+<div class="flex justify-between items-start mb-2">
+<h3 class="text-xl font-bold">Ocean Paradise</h3>
+<span class="text-primary font-bold">₦152,950,000</span>
+</div>
+<div class="flex items-center text-gray-600 mb-4">
+<div class="w-5 h-5 flex items-center justify-center mr-2">
+<i class="ri-map-pin-line"></i>
+</div>
+<span>Lagos, Victoria Island</span>
+</div>
+<div class="flex justify-between text-sm">
+<span class="bg-gray-100 px-3 py-1 rounded-full">Beachfront</span>
+<div class="flex space-x-4">
+<div class="flex items-center">
+<div class="w-4 h-4 flex items-center justify-center mr-1">
+<i class="ri-hotel-bed-line"></i>
+</div>
+<span>5</span>
+</div>
+<div class="flex items-center">
+<div class="w-4 h-4 flex items-center justify-center mr-1">
+<i class="ri-shower-line"></i>
+</div>
+<span>4</span>
+</div>
+<div class="flex items-center">
+<div class="w-4 h-4 flex items-center justify-center mr-1">
+<i class="ri-ruler-line"></i>
+</div>
+<span>4,500 sq ft</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Property 6 -->
+<div class="property-card bg-white rounded-lg overflow-hidden shadow-lg transition-transform hover:shadow-xl">
+<div class="relative h-64 overflow-hidden">
+<img src="./images/urban.jpg" alt="Rental Apartment" class="w-full h-full object-cover object-top transition-transform duration-500 hover:scale-105">
+<div class="property-details absolute inset-0 bg-black bg-opacity-60 flex items-center justify-center opacity-0 transition-opacity duration-300">
+<button class="bg-primary text-white px-6 py-2 !rounded-button font-medium hover:bg-opacity-90 transition-colors whitespace-nowrap">Currently Available To Let</button>
+</div>
+</div>
+<div class="p-6">
+<div class="flex justify-between items-start mb-2">
+<h3 class="text-xl font-bold">Urban Loft</h3>
+<span class="text-primary font-bold">₦302,200/month</span>
+</div>
+<div class="flex items-center text-gray-600 mb-4">
+<div class="w-5 h-5 flex items-center justify-center mr-2">
+<i class="ri-map-pin-line"></i>
+</div>
+<span>Delta State, Asaba</span>
+</div>
+<div class="flex justify-between text-sm">
+<span class="bg-gray-100 px-3 py-1 rounded-full">Rental</span>
+<div class="flex space-x-4">
+<div class="flex items-center">
+<div class="w-4 h-4 flex items-center justify-center mr-1">
+<i class="ri-hotel-bed-line"></i>
+</div>
+<span>1</span>
+</div>
+<div class="flex items-center">
+<div class="w-4 h-4 flex items-center justify-center mr-1">
+<i class="ri-shower-line"></i>
+</div>
+<span>1</span>
+</div>
+<div class="flex items-center">
+<div class="w-4 h-4 flex items-center justify-center mr-1">
+<i class="ri-ruler-line"></i>
+</div>
+<span>850 sq ft</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="text-center mt-12">
+<a href="#contact"><button class="bg-primary text-white px-8 py-3 !rounded-button font-medium hover:bg-opacity-90 transition-colors whitespace-nowrap">Contact Us For Specific Properties</button></a>
+</div>
+</div>
+</div>
+</section>
+<!-- About Preview Section -->
+<section id="about" class="section">
+<div class="bg-transition filter blur-sm" style="background-image: url('./images/building_bg2.jpg'); opacity: 0.8;"></div>
+<div class="section-content py-20">
+<div class="container mx-auto px-6">
+<div class="flex flex-col lg:flex-row items-center gap-12">
+<div class="lg:w-1/2">
+<h2 class="text-5xl font-family mb-6 text-black">Your Trusted Real Estate Partner</h2>
+<p class="text-2xl text-black mb-6">Founded in 2010, Horizon Properties has established itself as a premier real estate agency serving clients across the country. Our mission is to provide exceptional service and expertise in all aspects of real estate transactions.</p>
+<p class="text-2xl text-black mb-8">With a team of experienced professionals, we specialize in residential and commercial properties, land acquisition, and property management. Our commitment to integrity, transparency, and client satisfaction has earned us a reputation for excellence in the industry.</p>
+<p class="text-2xl text-black mb-8">We understand that buying, selling, or renting property is a significant decision, which is why we provide personalized guidance throughout the entire process. Our in-depth market knowledge and innovative approach ensure that our clients achieve their real estate goals efficiently and effectively.</p>
+</div>
+<div class="lg:w-1/2 relative">
+<img src="./images/about_cont.jpg" alt="Our Team" class="w-full h-auto rounded-lg border-4 border-white shadow-xl">
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Resources Section -->
+<section id="resources" class="section bg-white">
+<div class="bg-transition" style="background-image: url('./images/resource_bg.jpg');"></div>
+<div class="section-content py-20">
+<div class="container mx-auto px-6">
+<div class="text-center mb-12">
+<h2 class="text-4xl font-bold mb-4">Helpful Resources</h2>
+<p class="text-lg max-w-2xl mx-auto">Explore external sourced collection of guides and articles to help you make informed real estate decisions.</p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+<!-- Resource 1 -->
+<div class="bg-white rounded-lg overflow-hidden shadow-lg transition-transform hover:shadow-xl hover:scale-105">
+<div class="h-48 overflow-hidden">
+<img src="./images/resource1.jpg" alt="Land Buying Guide" class="w-full h-full object-cover object-top">
+</div>
+<div class="p-6">
+<h3 class="text-xl font-bold mb-3">Complete Guide to Buying Land</h3>
+<p class="text-gray-600 mb-4">Learn about zoning regulations, soil testing, utilities access, and other crucial factors to consider before purchasing land.</p>
+<a href="https://trustedadvisorslaw.com/how-to-buy-land-in-nigeria-a-legal-guide/" class="text-primary font-medium flex items-center hover:underline">
+Read More
+<div class="w-5 h-5 flex items-center justify-center ml-1">
+<i class="ri-arrow-right-line"></i>
+</div>
+</a>
+</div>
+</div>
+<!-- Resource 2 -->
+<div class="bg-white rounded-lg overflow-hidden shadow-lg transition-transform hover:shadow-xl hover:scale-105">
+<div class="h-48 overflow-hidden">
+<img src="./images/resource2.jpg" alt="Rental Laws" class="w-full h-full object-cover object-top">
+</div>
+<div class="p-6">
+<h3 class="text-xl font-bold mb-3">Legal Tips for Landlords & Tenants</h3>
+<p class="text-gray-600 mb-4">Understanding rental agreements, tenant rights, security deposits, and property maintenance responsibilities.</p>
+<a href="https://chamanlawfirm.com/landlords-and-tenants-in-nigeria/" class="text-primary font-medium flex items-center hover:underline">
+Read More
+<div class="w-5 h-5 flex items-center justify-center ml-1">
+<i class="ri-arrow-right-line"></i>
+</div>
+</a>
+</div>
+</div>
+<!-- Resource 3 -->
+<div class="bg-white rounded-lg overflow-hidden shadow-lg transition-transform hover:shadow-xl hover:scale-105">
+<div class="h-48 overflow-hidden">
+<img src="./images/resource3.jpg" alt="Home Inspection" class="w-full h-full object-cover object-top">
+</div>
+<div class="p-6">
+<h3 class="text-xl font-bold mb-3">Home Inspection Checklist</h3>
+<p class="text-gray-600 mb-4">Essential items to inspect before buying a home, including structural elements, electrical systems, and potential red flags.</p>
+<a href="https://www.totalhomeinspection.com/totalhomeinspectionchecklist.pdf" class="text-primary font-medium flex items-center hover:underline">
+Read More
+<div class="w-5 h-5 flex items-center justify-center ml-1">
+<i class="ri-arrow-right-line"></i>
+</div>
+</a>
+</div>
+</div>
+</div>
+<div class="text-center mt-12">
+</div>
+</div>
+</div>
+</section>
+<!-- Testimonials Section -->
+<section id="testimonials" class="section bg-[#F5F1EB]">
+<div class="bg-transition" style="background-image: url('./images/testimonial_bg.jpg');"></div>
+<div class="section-content py-20">
+<div class="container mx-auto px-6">
+<div class="text-center mb-12">
+<h2 class="text-4xl font-bold mb-4">What Our Clients Say</h2>
+<p class="text-lg max-w-2xl mx-auto">Hear from our satisfied clients about their experience working with Horizon Properties.</p>
+</div>
+<div class="testimonial-slider relative">
+<div class="testimonial-track" id="testimonial-track">
+<!-- Testimonial 1 -->
+<div class="testimonial-item min-w-full md:min-w-[50%] lg:min-w-[33.333%] p-4">
+<div class="bg-white p-6 rounded-lg shadow-lg h-full">
+<div class="flex items-center mb-4">
+<div class="text-yellow-400 flex">
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+</div>
+</div>
+<p class="text-gray-600 mb-6">"Working with Horizon Properties was an absolute pleasure. Their team guided us through every step of buying our first home, making what could have been a stressful process smooth and enjoyable."</p>
+<div class="flex items-center">
+<div class="w-12 h-12 rounded-full overflow-hidden mr-4">
+<img src="./images/02lady.jpg" alt="Chioma Ruth" class="w-full h-full object-cover">
+</div>
+<div>
+<h4 class="font-bold">Chioma Ruth</h4>
+<p class="text-sm text-gray-500">Delta State, Asaba</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Testimonial 2 -->
+<div class="testimonial-item min-w-full md:min-w-[50%] lg:min-w-[33.333%] p-4">
+<div class="bg-white p-6 rounded-lg shadow-lg h-full">
+<div class="flex items-center mb-4">
+<div class="text-yellow-400 flex">
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+</div>
+</div>
+<p class="text-gray-600 mb-6">"As an investor, I've worked with many real estate agencies, but Horizon Properties stands out for their market knowledge and professionalism. They helped me acquire multiple commercial properties with excellent ROI."</p>
+<div class="flex items-center">
+<div class="w-12 h-12 rounded-full overflow-hidden mr-4">
+<img src="./images/3man.jpg" alt="Oluwaburi Musa" class="w-full h-full object-cover">
+</div>
+<div>
+<h4 class="font-bold">Oluwaburi Musa</h4>
+<p class="text-sm text-gray-500">FCT, Abuja</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Testimonial 3 -->
+<div class="testimonial-item min-w-full md:min-w-[50%] lg:min-w-[33.333%] p-4">
+<div class="bg-white p-6 rounded-lg shadow-lg h-full">
+<div class="flex items-center mb-4">
+<div class="text-yellow-400 flex">
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-half-fill"></i>
+</div>
+</div>
+<p class="text-gray-600 mb-6">"I was looking for land to build my dream home, and Horizon Properties found me the perfect plot with mountain views. Their expertise in land acquisition was invaluable, and they handled all the complex paperwork."</p>
+<div class="flex items-center">
+<div class="w-12 h-12 rounded-full overflow-hidden mr-4">
+<img src="./images/3lady.jpg" alt="Sophia Okpara" class="w-full h-full object-cover">
+</div>
+<div>
+<h4 class="font-bold">Sophia Okpara</h4>
+<p class="text-sm text-gray-500">Anambara, Onitsha</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Testimonial 4 -->
+<div class="testimonial-item min-w-full md:min-w-[50%] lg:min-w-[33.333%] p-4">
+<div class="bg-white p-6 rounded-lg shadow-lg h-full">
+<div class="flex items-center mb-4">
+<div class="text-yellow-400 flex">
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+</div>
+</div>
+<p class="text-gray-600 mb-6">"When we needed to sell our family home quickly due to relocation, Horizon Properties exceeded our expectations. They marketed our property effectively, arranged multiple viewings, and secured a sale above asking price within two weeks."</p>
+<div class="flex items-center">
+<div class="w-12 h-12 rounded-full overflow-hidden mr-4">
+<img src="./images/2man.jpg" alt="Kelvin Somtochukwu" class="w-full h-full object-cover">
+</div>
+<div>
+<h4 class="font-bold">Kelvin Somtochukwu</h4>
+<p class="text-sm text-gray-500">Edo State, Benin</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Testimonial 5 -->
+<div class="testimonial-item min-w-full md:min-w-[50%] lg:min-w-[33.333%] p-4">
+<div class="bg-white p-6 rounded-lg shadow-lg h-full">
+<div class="flex items-center mb-4">
+<div class="text-yellow-400 flex">
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+</div>
+</div>
+<p class="text-gray-600 mb-6">"As a property investor from overseas, I needed a reliable agency to manage my rental properties. Horizon Properties has been exceptional, finding quality tenants, handling maintenance issues promptly, and providing detailed financial reports."</p>
+<div class="flex items-center">
+<div class="w-12 h-12 rounded-full overflow-hidden mr-4">
+<img src="./images/01lady.jpg" alt="Olive Nwaneri" class="w-full h-full object-cover">
+</div>
+<div>
+<h4 class="font-bold">Olive Nwaneri</h4>
+<p class="text-sm text-gray-500">Delta State, Warri</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Testimonial 6 -->
+<div class="testimonial-item min-w-full md:min-w-[50%] lg:min-w-[33.333%] p-4">
+<div class="bg-white p-6 rounded-lg shadow-lg h-full">
+<div class="flex items-center mb-4">
+<div class="text-yellow-400 flex">
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-line"></i>
+</div>
+</div>
+<p class="text-gray-600 mb-6">"I recently purchased my first apartment through Horizon Properties. Their team was patient with all my questions and concerns as a first-time buyer. They negotiated a fair price and helped me secure financing with favorable terms."</p>
+<div class="flex items-center">
+<div class="w-12 h-12 rounded-full overflow-hidden mr-4">
+<img src="./images/3man.jpg" alt="Kingsley Eze" class="w-full h-full object-cover">
+</div>
+<div>
+<h4 class="font-bold">Abu Zamfar</h4>
+<p class="text-sm text-gray-500">Lagos, Victoria Island</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Testimonial Navigation -->
+<div class="flex justify-center mt-8">
+<div class="flex space-x-2">
+<button class="w-3 h-3 rounded-full bg-gray-300 testimonial-dot active" data-index="0"></button>
+<button class="w-3 h-3 rounded-full bg-gray-300 testimonial-dot" data-index="1"></button>
+<button class="w-3 h-3 rounded-full bg-gray-300 testimonial-dot" data-index="2"></button>
+<button class="w-3 h-3 rounded-full bg-gray-300 testimonial-dot" data-index="3"></button>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Partners Section -->
+
+<section id="partners" class="section bg-white py-0">
+
+<div class="bg-transition" style="background-image: url('./images/partners_bg.jpg');"></div>
+
+<div class="section-content py-6">
+
+<div class="container mx-auto px-6">
+
+<div class="text-center mb-2">
+
+<h2 class="text-4xl font-bold mb-4">Our Trusted Partners</h2>
+<p class="text-lg max-w-2xl mx-auto">We collaborate with leading financial institutions and developers.</p>
+</div>
+<div class="grid grid-cols-2 md:grid-cols-3 gap-4 max-w-3xl mx-auto">
+
+<div class="partner-logo flex items-center justify-center p-4">
+<div class="w-12 h-12 flex items-center justify-center">
+<i class="ri-bank-fill ri-3x"></i>
+</div>
+<span class="ml-2 font-medium">CityBank</span>
+</div>
+<div class="partner-logo flex items-center justify-center p-4">
+<div class="w-12 h-12 flex items-center justify-center">
+<i class="ri-building-4-fill ri-3x"></i>
+</div>
+<span class="ml-2 font-medium">Metro Developers</span>
+</div>
+<div class="partner-logo flex items-center justify-center p-4">
+<div class="w-12 h-12 flex items-center justify-center">
+<i class="ri-home-4-fill ri-3x"></i>
+</div>
+<span class="ml-2 font-medium">Summit Homes</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Contact Section -->
+<section id="contact" class="section bg-[#F5F1EB]">
+<div class="bg-transition" style="background-image: url('./images/contact_bg.jpg');"></div>
+<div class="section-content py-20">
+<div class="container mx-auto px-6">
+<div class="flex flex-col lg:flex-row gap-12">
+<div class="lg:w-1/2">
+<h2 class="text-4xl font-bold mb-6">Get In Touch</h2>
+<p class="text-lg mb-8">Have questions about our properties or services? Fill out the form below, and one of our representatives will contact you shortly.</p>
+
+
+<form id="contactForm" onsubmit="handleSubmit(event)" class="space-y-6">
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+    <div>
+      <label for="contactName" class="block text-gray-700 mb-2">Full Name</label>
+      <input type="text" id="contactName" name="Name" class="w-full px-4 py-3 rounded border-none bg-white shadow-sm focus:ring-2 focus:ring-primary" placeholder="John Doe" required>
+    </div>
+    <div>
+      <label for="contactEmail" class="block text-gray-700 mb-2">Email Address</label>
+      <input type="email" id="contactEmail" name="Email" class="w-full px-4 py-3 rounded border-none bg-white shadow-sm focus:ring-2 focus:ring-primary" placeholder="john@example.com" required>
+    </div>
+  </div>
+
+  <div>
+    <label for="contactPhone" class="block text-gray-700 mb-2">Phone Number</label>
+    <input type="tel" id="contactPhone" name="Phone" class="w-full px-4 py-3 rounded border-none bg-white shadow-sm focus:ring-2 focus:ring-primary" placeholder="(123) 456-7890">
+  </div>
+
+  <div>
+    <label for="interest" class="block text-gray-700 mb-2">I'm Interested In</label>
+    <div class="relative">
+      <select id="interest" name="Interest" class="w-full px-4 py-3 rounded border-none bg-white shadow-sm focus:ring-2 focus:ring-primary appearance-none pr-8" required>
+        <option value="" disabled selected>Select an option</option>
+        <option value="buying">Buying a Property</option>
+        <option value="selling">Selling a Property</option>
+        <option value="renting">Renting a Property</option>
+        <option value="investing">Property Investment</option>
+        <option value="other">Other Inquiry</option>
+      </select>
+      <div class="absolute right-3 top-1/2 transform -translate-y-1/2 pointer-events-none w-5 h-5 flex items-center justify-center">
+        <i class="ri-arrow-down-s-line"></i>
+      </div>
+    </div>
+  </div>
+
+  <div>
+    <label for="contactMessage" class="block text-gray-700 mb-2">Message</label>
+    <textarea id="contactMessage" name="Message" rows="4" required class="w-full px-4 py-3 rounded border-none bg-white shadow-sm focus:ring-2 focus:ring-primary" placeholder="Tell us about your real estate needs..."></textarea>
+  </div>
+
+  <div class="flex items-start">
+    <input type="checkbox" required>
+    <span class="checkmark"></span>
+    <label for="privacy" class="text-sm text-gray-600 ml-3">
+      <span>I agree to the <a href="index2.html#privacy-policy" class="text-primary hover:underline">Privacy Policy</a> and consent to having my data processed.</span>
+    </label>
+  </div>
+
+  <button type="submit" class="bg-primary text-white px-8 py-3 !rounded-button font-medium hover:bg-opacity-90 transition-colors whitespace-nowrap">Submit Inquiry</button>
+</form>
+
+
+
+
+
+
+
+
+</div>
+<div class="lg:w-1/2">
+<div class="bg-white p-8 rounded-lg shadow-lg h-full">
+<h3 class="text-2xl font-bold mb-6">Contact Information</h3>
+<div class="space-y-6">
+<div class="flex items-start">
+<div class="w-10 h-10 flex items-center justify-center mr-4 text-primary">
+<i class="ri-map-pin-line ri-lg"></i>
+</div>
+<div>
+<h4 class="font-bold mb-1">Main Office</h4>
+<p class="text-gray-600">14 Property Lane, Suitex Road<br>Nigeria, Abuja 10001</p>
+</div>
+</div>
+<div class="flex items-start">
+<div class="w-10 h-10 flex items-center justify-center mr-4 text-primary">
+<i class="ri-phone-line ri-lg"></i>
+</div>
+<div>
+<h4 class="font-bold mb-1">Phone</h4>
+<p class="text-gray-600">+(234) 812-345-6789</p>
+<p class="text-gray-600">Toll-free: 1-800-555-HOME</p>
+</div>
+</div>
+<div class="flex items-start">
+<div class="w-10 h-10 flex items-center justify-center mr-4 text-primary">
+<i class="ri-mail-line ri-lg"></i>
+</div>
+<div>
+<h4 class="font-bold mb-1">Email</h4>
+<p class="text-gray-600">info@horizonproperties.com</p>
+<p class="text-gray-600">support@horizonproperties.com</p>
+</div>
+</div>
+<div class="flex items-start">
+<div class="w-10 h-10 flex items-center justify-center mr-4 text-primary">
+<i class="ri-time-line ri-lg"></i>
+</div>
+<div>
+<h4 class="font-bold mb-1">Business Hours</h4>
+<p class="text-gray-600">Monday - Friday: 9:00 AM - 6:00 PM</p>
+<p class="text-gray-600">Saturday: 10:00 AM - 4:00 PM</p>
+<p class="text-gray-600">Sunday: Closed</p>
+</div>
+</div>
+</div>
+<div class="mt-8">
+<h4 class="font-bold mb-4">Connect With Us</h4>
+<div class="flex space-x-4">
+<a href="#" class="w-10 h-10 flex items-center justify-center bg-gray-100 rounded-full hover:bg-primary hover:text-white transition-colors">
+<i class="ri-facebook-fill"></i>
+</a>
+<a href="#" class="w-10 h-10 flex items-center justify-center bg-gray-100 rounded-full hover:bg-primary hover:text-white transition-colors">
+<i class="ri-twitter-fill"></i>
+</a>
+<a href="#" class="w-10 h-10 flex items-center justify-center bg-gray-100 rounded-full hover:bg-primary hover:text-white transition-colors">
+<i class="ri-instagram-line"></i>
+</a>
+<a href="#" class="w-10 h-10 flex items-center justify-center bg-gray-100 rounded-full hover:bg-primary hover:text-white transition-colors">
+<i class="ri-linkedin-fill"></i>
+</a>
+<a href="#" class="w-10 h-10 flex items-center justify-center bg-gray-100 rounded-full hover:bg-primary hover:text-white transition-colors">
+<i class="ri-youtube-fill"></i>
+</a>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="bg-primary text-white">
+<div class="container mx-auto px-6 py-12">
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+<div>
+<a href="#" class="text-3xl font-['Pacifico'] text-white mb-6 inline-block">logo</a>
+<p class="mb-6">Your trusted partner in real estate since 2010. We help clients find, buy, sell, and rent properties with confidence and ease.</p>
+<div class="flex space-x-4">
+<a href="#" class="w-10 h-10 flex items-center justify-center bg-white bg-opacity-20 rounded-full hover:bg-opacity-30 transition-colors">
+<i class="ri-facebook-fill"></i>
+</a>
+<a href="#" class="w-10 h-10 flex items-center justify-center bg-white bg-opacity-20 rounded-full hover:bg-opacity-30 transition-colors">
+<i class="ri-twitter-fill"></i>
+</a>
+<a href="https://www.instagram.com" target="_blank" class="w-10 h-10 flex items-center justify-center bg-white bg-opacity-20 rounded-full hover:bg-opacity-30 transition-colors">
+<i class="ri-instagram-fill"></i>
+</a>
+<a href="#" class="w-10 h-10 flex items-center justify-center bg-white bg-opacity-20 rounded-full hover:bg-opacity-30 transition-colors">
+<i class="ri-linkedin-fill"></i>
+</a>
+</div>
+</div>
+<div>
+<h3 class="text-xl font-bold mb-6">Quick Links</h3>
+<ul class="space-y-3">
+<li><a href="#" class="hover:text-gray-300 transition-colors">Home</a></li>
+<li><a href="#about" class="hover:text-gray-300 transition-colors">About Us</a></li>
+<li><a href="#listings" class="hover:text-gray-300 transition-colors">Properties</a></li>
+<li><a href="#resources" class="hover:text-gray-300 transition-colors">Resources</a></li>
+<li><a href="#contact" class="hover:text-gray-300 transition-colors">Contact</a></li>
+<li><a href="#" class="hover:text-gray-300 transition-colors">Privacy Policy</a></li>
+<li><a href="#" class="hover:text-gray-300 transition-colors">Terms of Service</a></li>
+</ul>
+</div>
+<div>
+<h3 class="text-xl font-bold mb-6">Property Types</h3>
+<ul class="space-y-3">
+<li><a href="#" class="hover:text-gray-300 transition-colors">Residential Homes</a></li>
+<li><a href="#" class="hover:text-gray-300 transition-colors">Apartments & Condos</a></li>
+<li><a href="#" class="hover:text-gray-300 transition-colors">Land & Lots</a></li>
+<li><a href="#" class="hover:text-gray-300 transition-colors">Commercial Properties</a></li>
+<li><a href="#" class="hover:text-gray-300 transition-colors">Rental Properties</a></li>
+<li><a href="#" class="hover:text-gray-300 transition-colors">Luxury Estates</a></li>
+<li><a href="#" class="hover:text-gray-300 transition-colors">New Developments</a></li>
+</ul>
+</div>
+<div>
+<h3 class="text-xl font-bold mb-6">Newsletter</h3>
+<p class="mb-4">Subscribe to our newsletter for the latest property listings and real estate news.</p>
+<form class="mb-4">
+<div class="flex">
+<input type="email" class="w-full px-4 py-2 rounded-l border-none text-gray-800 focus:outline-none" placeholder="Your email address">
+<button type="submit" class="bg-primary text-white px-4 py-2 rounded-r hover:bg-opacity-90 transition-colors whitespace-nowrap">Subscribe</button>
+</div>
+</form>
+<div class="flex items-center space-x-4">
+<div class="w-10 h-10 flex items-center justify-center">
+<i class="ri-visa-fill ri-lg"></i>
+</div>
+<div class="w-10 h-10 flex items-center justify-center">
+<i class="ri-mastercard-fill ri-lg"></i>
+</div>
+<div class="w-10 h-10 flex items-center justify-center">
+<i class="ri-paypal-fill ri-lg"></i>
+</div>
+<div class="w-10 h-10 flex items-center justify-center">
+<i class="ri-bank-card-fill ri-lg"></i>
+</div>
+</div>
+</div>
+</div>
+<div class="border-t border-white border-opacity-20 mt-12 pt-8 text-center">
+<p>&copy; 2025 Horizon Properties. All rights reserved.</p>
+</div>
+</div>
+</footer>
+<!-- WhatsApp Button -->
+<a href="https://wa.me/1234567890" class="whatsapp-btn bg-green-500 text-white w-14 h-14 rounded-full flex items-center justify-center shadow-lg">
+<i class="ri-whatsapp-line ri-2x"></i>
+</a>
+<!-- Cookie Consent -->
+<div class="cookie-consent" id="cookie-consent">
+<div class="container mx-auto px-6 py-4">
+<div class="flex flex-col md:flex-row items-center justify-between gap-4">
+<div>
+<h3 class="font-bold mb-2">We use cookies</h3>
+<p class="text-sm text-gray-600">We use cookies to improve your experience on our website. By continuing to browse, you agree to our <a href="#" class="text-primary hover:underline">Privacy Policy</a>.</p>
+</div>
+<div class="flex space-x-4">
+<button id="decline-cookies" class="px-6 py-2 border border-gray-300 !rounded-button hover:bg-gray-100 transition-colors whitespace-nowrap">Decline</button>
+<button id="accept-cookies" class="bg-primary text-white px-6 py-2 !rounded-button hover:bg-opacity-90 transition-colors whitespace-nowrap">Accept All</button>
+</div>
+</div>
+</div>
+</div>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+// Mobile Menu Toggle
+const mobileMenuButton = document.getElementById('mobile-menu-button');
+const mobileMenu = document.getElementById('mobile-menu');
+mobileMenuButton.addEventListener('click', function() {
+mobileMenu.classList.toggle('hidden');
+});
+// Scroll-based background transition
+const sections = document.querySelectorAll('.section');
+function checkScroll() {
+const scrollY = window.scrollY;
+const windowHeight = window.innerHeight;
+sections.forEach((section, index) => {
+const sectionTop = section.offsetTop;
+const sectionHeight = section.offsetHeight;
+const sectionBottom = sectionTop + sectionHeight;
+const backgroundElement = section.querySelector('.bg-transition');
+if (scrollY >= sectionTop - windowHeight / 2 && scrollY < sectionBottom - windowHeight / 2) {
+backgroundElement.style.transform = 'translateY(0)';
+backgroundElement.style.opacity = '1';
+} else if (scrollY >= sectionBottom - windowHeight / 2) {
+backgroundElement.style.transform = 'translateY(-30%)';
+backgroundElement.style.opacity = '0';
+} else {
+backgroundElement.style.transform = 'translateY(30%)';
+backgroundElement.style.opacity = '0';
+}
+});
+// Header scroll effect
+const header = document.querySelector('header');
+if (scrollY > 50) {
+header.classList.add('py-2');
+header.classList.add('shadow-lg');
+} else {
+header.classList.remove('py-2');
+header.classList.remove('shadow-lg');
+}
+}
+window.addEventListener('scroll', checkScroll);
+checkScroll(); // Initial check
+});
+document.addEventListener('DOMContentLoaded', function() {
+// Testimonial Slider
+const track = document.getElementById('testimonial-track');
+const dots = document.querySelectorAll('.testimonial-dot');
+let currentIndex = 0;
+function updateSlider() {
+const itemWidth = document.querySelector('.testimonial-item').offsetWidth;
+track.style.transform = `translateX(-${currentIndex * itemWidth}px)`;
+dots.forEach((dot, index) => {
+if (index === currentIndex) {
+dot.classList.add('bg-primary');
+dot.classList.remove('bg-gray-300');
+} else {
+dot.classList.remove('bg-primary');
+dot.classList.add('bg-gray-300');
+}
+});
+}
+dots.forEach((dot, index) => {
+dot.addEventListener('click', () => {
+currentIndex = index;
+updateSlider();
+});
+});
+// Auto slide
+let slideInterval = setInterval(() => {
+currentIndex = (currentIndex + 1) % dots.length;
+updateSlider();
+}, 5000);
+// Pause on hover
+track.addEventListener('mouseenter', () => {
+clearInterval(slideInterval);
+});
+track.addEventListener('mouseleave', () => {
+slideInterval = setInterval(() => {
+currentIndex = (currentIndex + 1) % dots.length;
+updateSlider();
+}, 5000);
+});
+// Initial update
+updateSlider();
+// Handle window resize
+window.addEventListener('resize', updateSlider);
+});
+document.addEventListener('DOMContentLoaded', function() {
+// Cookie Consent
+const cookieConsent = document.getElementById('cookie-consent');
+const acceptCookies = document.getElementById('accept-cookies');
+const declineCookies = document.getElementById('decline-cookies');
+// Show cookie consent if not previously accepted
+if (!localStorage.getItem('cookiesAccepted')) {
+setTimeout(() => {
+cookieConsent.classList.add('show');
+}, 1000);
+}
+acceptCookies.addEventListener('click', () => {
+localStorage.setItem('cookiesAccepted', 'true');
+cookieConsent.classList.remove('show');
+});
+declineCookies.addEventListener('click', () => {
+localStorage.setItem('cookiesDeclined', 'true');
+cookieConsent.classList.remove('show');
+});
+});
+
+// To send mail
+  function handleSubmit(event) {
+    event.preventDefault(); // Prevent form from submitting normally
+
+    const name = document.getElementById("contactName").value.trim();
+    const email = document.getElementById("contactEmail").value.trim();
+    const phone = document.getElementById("contactPhone").value.trim();
+    const interest = document.getElementById("interest").value;
+    const message = document.getElementById("contactMessage").value.trim();
+    const checkbox = document.querySelector('#contactForm input[type="checkbox"]');
+
+    if (!name || !email || !message || !checkbox.checked) {
+      alert("Please fill all required fields and agree to the privacy policy.");
+      return;
+    }
+
+    const subject = `Inquiry from New Client: ${name}`;
+    const body = `Name: ${name}\nEmail: ${email}\nPhone: ${phone}\nInterest: ${interest}\n\nMessage:\n${message}`;
+
+    const mailtoLink = `mailto:info@realestates.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    window.location.href = mailtoLink;
+  }
+
+</script>
+</body>
+</html>
